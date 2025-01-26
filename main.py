@@ -1,8 +1,12 @@
 def main():
-    path = "books/frankenstein.txt"
-    text = get_book_text(path)
+    text = ""
+    book = input("Enter the book name (Case Sensitive): ")
+    path =  f"books/{book}.txt"
+    try:
+        text = get_book_text(path)
+    except FileNotFoundError:
+        print("Book not found!")
     report(text)
-    #print(text)
 
 def word_count(text):
     words = text.split()
