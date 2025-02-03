@@ -6,6 +6,13 @@ def main():
     char_amount = input("Enter amount of chars to see in report (Interger): ")
     word_amount = input("Enter amount of words to see in report (Interger): ")
     
+    see_non_alpha_chars = input("Do you want to see all non alpha characters? (y/n): ")
+    if see_non_alpha_chars != "n" and see_non_alpha_chars != "y":
+        raise ValueError("Invalid input")
+    if see_non_alpha_chars == "y":
+        see_non_alpha_charss = True
+    see_non_alpha_chars = False
+    
     # Validate inputs
     if char_amount.isnumeric():
         char_amount = int(char_amount)
@@ -25,7 +32,7 @@ def main():
     except FileNotFoundError:
         print("Book not found!")
    
-    report(text,char_amount,word_amount)
+    report(text,char_amount,word_amount,see_non_alpha_chars)
 
 # Returns the number of words in the text
 def word_count(text):
@@ -53,7 +60,7 @@ def sort_dict_by_value(d):
     return dict(sorted(d.items(), key=lambda x: x[1], reverse=True))
 
 # Prints a report with the number of words, the top char_amount most used characters and the top word_amount most used words
-def report(text,char_amount=10,word_amount=10):
+def report(text,char_amount=10,word_amount=10,see_non_alpha_chars=False):
     
     # Get the top char_amount most used characters. Sorted by value
     chars = sort_dict_by_value(char_count(text))
@@ -76,10 +83,14 @@ def report(text,char_amount=10,word_amount=10):
     print(f"Top {word_amount} words:")
     for word in individual_words_count_keys:
         print(f"Word '{word}' appears {individual_words_count[word]} times")
-    print(f"Top {char_amount} alpha characters:")
+    if see_non_alpha_chars:
+        print(f"Top {char_amount} characters:")
+    else:
+        print(f"Top {char_amount} alpha characters:")
     for char in chars_keys:
-        # Note: Add a boolen check for displaying only alpha characters
-        if char.isalpha():
+        if see_non_alpha_chars and char.isalpha():
+            print(f"Char '{char}' appears {chars[char]} times")
+        else:
             print(f"Char '{char}' appears {chars[char]} times")
     print("---- End of Report ----")
 
