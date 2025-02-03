@@ -10,7 +10,7 @@ def main():
     if see_non_alpha_chars != "n" and see_non_alpha_chars != "y":
         raise ValueError("Invalid input")
     if see_non_alpha_chars == "y":
-        see_non_alpha_charss = True
+        see_non_alpha_chars = True
     see_non_alpha_chars = False
     
     # Validate inputs
