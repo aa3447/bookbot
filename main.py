@@ -11,7 +11,8 @@ def main():
         raise ValueError("Invalid input")
     if see_non_alpha_chars == "y":
         see_non_alpha_chars = True
-    see_non_alpha_chars = False
+    else:
+        see_non_alpha_chars = False
     
     # Validate inputs
     if char_amount.isnumeric():
@@ -88,9 +89,9 @@ def report(text,char_amount=10,word_amount=10,see_non_alpha_chars=False):
     else:
         print(f"Top {char_amount} alpha characters:")
     for char in chars_keys:
-        if see_non_alpha_chars and char.isalpha():
+        if not see_non_alpha_chars and char.isalpha():
             print(f"Char '{char}' appears {chars[char]} times")
-        else:
+        elif see_non_alpha_chars:
             print(f"Char '{char}' appears {chars[char]} times")
     print("---- End of Report ----")
 
